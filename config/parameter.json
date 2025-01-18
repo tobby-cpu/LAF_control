@@ -1,0 +1,8 @@
+﻿{
+    "ID" : 1,
+    "port" : "COM7",
+    "baudrate" : 921600,
+    "time_out" : 6,
+    "Angle_address" : "0x1486" 
+    
+}
