@@ -4,5 +4,6 @@
     "baudrate" : 921600,
     "time_out" : 6,
     "Angle_address" : "0x1486" ,
-    "LAF_ID" : 1
+    "LAF_ID" : 1,
+    "CMD_WR_REGISTER" : "0x32"
 }
