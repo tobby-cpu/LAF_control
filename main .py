@@ -19,10 +19,10 @@ if __name__ == '__main__':
     position_hand(ser, 0 , 0 , 0 , 0 , 0 ,0 )
     time.sleep(1)
     
-    '''
     print('设置电缸速度以及位置信息')
     speed(ser, 1, 1000,1200)    # ID号改为对应电缸的ID号
     time.sleep(1)
+    '''
     print('设置电缸力控目标值，速度以及位置信息')
     speedForce(ser,1, 10, 2000, 2000)
     time.sleep(1)

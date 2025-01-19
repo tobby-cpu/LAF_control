@@ -3,7 +3,13 @@
     "port" : "COM7",
     "baudrate" : 921600,
     "time_out" : 6,
-    "Angle_address" : "0x1486" ,
+    "CMD_FINGER_ANGLE_SET_2B" : 1486,
+    "CMD_FINGER_SPEED_SET_2B" : 1522,
     "LAF_ID" : 1,
-    "CMD_WR_REGISTER" : "0x32"
+    "CMD_WR_REGISTER" : "0x32",
+    "CMD_HANDG3_WRITE" : "0x12",
+    "FRAME_HAND1" : "0xEB",
+    "FRAME_HAND2" : "0x90",
+    "FRAME_LAF1" : "0x55",
+    "FRAME_LAF2" : "0xAA"
 }

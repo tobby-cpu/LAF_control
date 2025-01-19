@@ -2,11 +2,11 @@
 import config.init as cf
 #LAF电机控制函数
 # 函数说明：位置模式函数；参数：id为电缸ID号， val为设置电缸位置数据
-def position_LAF(ser, id, val):
-    bytes = [0x55, 0xAA]              # 帧头
+def position_LAF(ser,val):
+    bytes = [cf.FRAME_LAF1, cf.FRAME_LAF2]              # 帧头
     bytes.append(0x0D)                # 数据长度
-    bytes.append(id)                  # ID号
-    bytes.append(0x32)                # CMD_WR_REGISTER 写寄存器命令标志
+    bytes.append(cf.LAF_ID)                  # ID号
+    bytes.append(cf.CMD_WR_REGISTER)                # CMD_WR_REGISTER 写寄存器命令标志
     bytes.append(0x25)                # 控制模式寄存器地址低字节
     bytes.append(0x00)                # 控制模式寄存器地址高字节
     bytes.append(0x00)                # 设置控制模式为速度模式
@@ -31,12 +31,12 @@ def position_LAF(ser, id, val):
 #3代手控制函数,设置了6个连续的角度值
 def position_hand(ser,val1,val2,val3,val4,val5,val6):
     length = 2*6                      #设置了6个角度，每个角度占2B
-    bytes = [0xEB, 0x90]              # 帧头
+    bytes = [cf.FRAME_HAND1, cf.FRAME_HAND2]              # 帧头
     bytes.append(cf.Hand_ID)                  # ID
-    bytes.append(cf.Angle_address & 0xff)          # 目标寄存器地址
-    bytes.append((cf.Angle_address >> 8) & 0xff)   # 目标寄存器地址
+    bytes.append(cf.CMD_FINGER_ANGLE_SET_2B & 0xff)          # 目标寄存器地址
+    bytes.append((cf.CMD_FINGER_ANGLE_SET_2B >> 8) & 0xff)   # 目标寄存器地址
     bytes.append(length + 3)           #6个角度值，每个值占2B，故为12
-    bytes.append(0x12)                 #写3代手寄存器指令
+    bytes.append(cf.CMD_HANDG3_WRITE)                 #写3代手寄存器指令
     bytes.append(val1 & 0xff)          #设置小拇指角度值
     bytes.append((val1 >> 8) & 0xff)   #设置小拇指角度值
     bytes.append(val2 & 0xff)          #设置无名指角度值

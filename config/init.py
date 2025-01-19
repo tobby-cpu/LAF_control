@@ -1,6 +1,7 @@
 ﻿import json
 def read_config():
-    global port ,baudrate ,timeout,Hand_ID,Angle_address,LAF_ID,CMD_WR_REGISTER
+    global port ,baudrate ,timeout,Hand_ID,CMD_FINGER_ANGLE_SET_2B,LAF_ID,CMD_WR_REGISTER,CMD_HANDG3_WRITE
+    global CMD_FINGER_SPEED_SET_2B,FRAME_HAND1,FRAME_HAND2,FRAME_LAF1,FRAME_LAF2
     file_path = 'config/parameter.json'
     with open(file_path, 'r',encoding='utf-8-sig') as f:
         config = json.load(f)
@@ -9,16 +10,28 @@ def read_config():
     baudrate = config['baudrate']
     timeout = config['time_out']
     Hand_ID = config['Hand_ID']
-    Angle_address = config['Angle_address']
+    CMD_FINGER_ANGLE_SET_2B = config['CMD_FINGER_ANGLE_SET_2B']
     LAF_ID = config['LAF_ID']
     CMD_WR_REGISTER = config['CMD_WR_REGISTER']
+    CMD_HANDG3_WRITE = config['CMD_HANDG3_WRITE']
+    CMD_FINGER_SPEED_SET_2B = config['CMD_FINGER_SPEED_SET_2B']
+    FRAME_HAND1 = config['FRAME_HAND1']
+    FRAME_HAND2 = config['FRAME_HAND2']
+    FRAME_LAF1 = config['FRAME_LAF1']
+    FRAME_LAF2 = config['FRAME_LAF2']
 
     print(f"串口端口: {port}")
     print(f"波特率: {baudrate}")
     print(f"超时时间: {timeout} 秒")
     print(f"灵巧手设备ID: {Hand_ID}")
-    print(f"角度寄存器地址: {Angle_address}")
+    print(f"角度寄存器地址: {CMD_FINGER_ANGLE_SET_2B}")
+    print(f"角度寄存器命令标志: {CMD_HANDG3_WRITE}")
     print(f"LAF电机设备ID: {LAF_ID}")
-    print(f"CMD_WR_REGISTER 写寄存器命令标志: {CMD_WR_REGISTER}")
+    print(f"写LAF电机寄存器命令标志: {CMD_WR_REGISTER}")
+    print(f"写三代手寄存器命令标志: {CMD_HANDG3_WRITE}")
+    print(f"三代手帧头1: {FRAME_HAND1}")
+    print(f"三代手帧头2: {FRAME_HAND2}")
+    print(f"LAF电机帧头1: {FRAME_LAF1}")
+    print(f"LAF电机帧头2: {FRAME_LAF2}")
 
 read_config()
