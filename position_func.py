@@ -30,10 +30,9 @@ def position_LAF(ser, id, val):
 
 #3代手控制函数,设置了6个连续的角度值
 def position_hand(ser,val1,val2,val3,val4,val5,val6):
-    id = 1
-    length = 2*6
+    length = 2*6                      #设置了6个角度，每个角度占2B
     bytes = [0xEB, 0x90]              # 帧头
-    bytes.append(id)                  # ID
+    bytes.append(cf.Hand_ID)                  # ID
     bytes.append(cf.Angle_address & 0xff)          # 目标寄存器地址
     bytes.append((cf.Angle_address >> 8) & 0xff)   # 目标寄存器地址
     bytes.append(length + 3)           #6个角度值，每个值占2B，故为12
