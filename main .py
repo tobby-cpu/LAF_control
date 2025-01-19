@@ -1,7 +1,7 @@
-import serial  # 调用串口通信库
 import time    # 调用时间库
-from control_func import openSerial,speed,speedForce,reedState
+from control_func import openSerial,speedForce,reedState
 from position_func import position_hand,position_LAF
+from speed_func import speed_LAF,speed_hand
 from config.init import read_config
 import config.init as cf
 # 主函数功能：首先打开串口，设置对应的端口和波特率，依次设置电缸运动位置参数
@@ -20,7 +20,8 @@ if __name__ == '__main__':
     time.sleep(1)
     
     print('设置电缸速度以及位置信息')
-    speed(ser, 1, 1000,1200)    # ID号改为对应电缸的ID号
+    speed_LAF(ser,1000,1200)    # ID号改为对应电缸的ID号
+    speed_hand(ser, 0 , 0 , 0 , 0 , 0 , 0 )  
     time.sleep(1)
     '''
     print('设置电缸力控目标值，速度以及位置信息')
