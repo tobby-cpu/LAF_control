@@ -35,4 +35,3 @@ def read_config():
     print(f"LAF电机帧头1: {FRAME_LAF1}")
     print(f"LAF电机帧头2: {FRAME_LAF2}")
     print(f"LAF读寄存器命令标志: {CMD_RD_STATUS}")
-read_config()
