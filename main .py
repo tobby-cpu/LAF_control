@@ -3,7 +3,7 @@ from control_func import openSerial
 from position_func import position_hand,position_LAF
 from speed_func import speed_LAF,speed_hand
 from config.init import read_config
-from Readstatus_func import LAF_reedState
+from readstatus_func import LAF_reedState,Hand_readState
 import config.init as cf
 # 主函数功能：首先打开串口，设置对应的端口和波特率，依次设置电缸运动位置参数
 if __name__ == '__main__':
@@ -12,19 +12,22 @@ if __name__ == '__main__':
     print('打开串口！') # 打印提示字符“打开串口”
     ser = openSerial(cf.port, cf.baudrate) # 改成自己的串口号和波特率，波特率默认921600
     time.sleep(1)
-    print('设置电缸位置信息，-1为不设置该运动速度！')
-                                  
-       #读取所需参数
-    #开始执行控制语句
-    #首先进行位置参数的调试
+    
+    
+    print('设置电缸位置信息，-1为不设置该运动速度！')     #位置控制函数调试
     position_LAF(ser,cf.LAF_ID ,0)
     position_hand(ser, 0 , 0 , 0 , 0 , 0 ,0 )
     time.sleep(1)
     
-    print('设置电缸速度以及位置信息')
-    speed_LAF(ser,1000,1200)    # ID号改为对应电缸的ID号
+    print('设置电缸速度以及位置信息')           #速度控制函数调试
+    speed_LAF(ser,1000,1200)    
     speed_hand(ser, 0 , 0 , 0 , 0 , 0 , 0 )  
     time.sleep(1)
+   
+   
+    print('读取电缸状态信息')
+    LAF_reedState(ser)
+    Hand_readState(ser)
     '''
     print('设置电缸力控目标值，速度以及位置信息')
     speedForce(ser,1, 10, 2000, 2000)
@@ -35,7 +38,6 @@ if __name__ == '__main__':
     print('设置电机输出电压')
   #  voltage(ser,1, 10)
   '''
-    print('读取电缸状态信息')
-    LAF_reedState(ser)
+ 
 
     # time.sleep(10) # 由于力校准时间较长，请不要漏过这个sleep并尝试重新与手通讯，可能导致插件崩溃

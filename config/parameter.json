@@ -12,5 +12,7 @@
     "FRAME_HAND2" : "0x90",
     "FRAME_LAF1" : "0x55",
     "FRAME_LAF2" : "0xAA",
-    "CMD_RD_STATUS" : "0x30"
+    "CMD_RD_STATUS" : "0x30",
+    "CMD_FINGER_ANGLE_2B" : 1546,
+    "CMD_HANDG3_READ" : "0x11"
 }
