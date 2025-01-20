@@ -15,7 +15,7 @@ if __name__ == '__main__':
     
     
     print('设置电缸位置信息，-1为不设置该运动速度！')     #位置控制函数调试
-    position_LAF(ser,cf.LAF_ID ,0)
+    position_LAF(ser ,0)
     position_hand(ser, 0 , 0 , 0 , 0 , 0 ,0 )
     time.sleep(1)
     
