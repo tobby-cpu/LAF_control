@@ -1,7 +1,9 @@
-﻿import serial  # 调用串口通信库
+﻿
+import serial  # 调用串口通信库
 import time    # 调用时间库
 # 函数说明：设置串口号和波特率并且打开串口；参数：port为串口号，baudrate为波特率
 # 寄存器地址说明，对应微型伺服电缸（力闭环专用）用户手册11页，3.4寄存器说明
+print("PySerial version:", serial.__version__)
 regdict = {
     'ID'              : 0x16,   # ID
     'baudrate'        : 0x17,   # 波特率设置
@@ -33,32 +35,6 @@ def openSerial(port, baudrate):
     ser.baudrate = baudrate
     ser.open()            # 打开串口
     return ser
-
-# 函数说明：读电缸状态信息；参数：id为电缸ID号
-def reedState(ser, id):
-    bytes = [0x55, 0xAA]              # 帧头
-    bytes.append(0x01)                # 数据长度
-    bytes.append(id)                  # ID号
-    bytes.append(0x30)                # CMD_RD_STATUS 读寄存器命令标志
-    checksum = 0x00                   # 校验和初始化为0
-    for i in range(2, len(bytes)):
-        checksum += bytes[i]          # 对数据进行加和处理
-    checksum &= 0xFF                  # 对校验和取低八位
-    bytes.append(checksum)            # 低八位校验和
-    ser.write(bytes)                  # 向串口写入数据
-    time.sleep(0.01)                  # 延时10ms
-    recv = ser.read_all()             # 从端口读字节数据
-    if len(recv) == 0:                # 如果返回的数据长度为0，直接返回
-        return []
-    num = (recv[2] & 0xFF) - 3      # 寄存器数据所返回的数量
-    val = []
-    for i in range(num):
-        val.append(recv[7 + i])
-    print('读到的寄存器值依次为：', end='')
-    for i in range(num):
-        print(val[i], end=' ')
-    print()
-
 # 函数说明：写电缸寄存器操作函数；参数：id为电缸ID号，add为控制表索引，num为该帧数据的部分长度，val为所要写入寄存器的数据
 def writeRegister(ser, id, add, num, val):
     bytes = [0x55, 0xAA]            # 帧头
@@ -79,35 +55,6 @@ def writeRegister(ser, id, add, num, val):
     ser.write(bytes)                # 向串口写入数据
     time.sleep(0.01)                # 延时10ms
     ser.read_all()                  # 把返回帧读掉，不处理
-
-# 函数说明：位置模式函数；参数：id为电缸ID号， val为设置电缸位置数据
-def position(ser, id, val):
-    bytes = [0x55, 0xAA]              # 帧头
-    bytes.append(0x0D)                # 数据长度
-    bytes.append(id)                  # ID号
-    bytes.append(0x32)                # CMD_WR_REGISTER 写寄存器命令标志
-    bytes.append(0x25)                # 控制模式寄存器地址低字节
-    bytes.append(0x00)                # 控制模式寄存器地址高字节
-    bytes.append(0x00)                # 设置控制模式为速度模式
-    bytes.append(0x00)                # 设置控制模式为速度模式
-    bytes.append(0x00)                # 电机输出电压寄存器，在定位模式无用
-    bytes.append(0x00)                # 电机输出电压寄存器，在定位模式无用
-    bytes.append(0x00)                # 力控目标值寄存器，在定位模式无用
-    bytes.append(0x00)                # 力控目标值寄存器，在定位模式无用
-    bytes.append(0x00)                # 目标速度寄存器
-    bytes.append(0x00)                # 目标速度寄存器
-    bytes.append(val & 0xff)          # 目标位置
-    bytes.append((val >> 8) & 0xff)   # 目标位置
-    checksum = 0x00                   # 校验和初始化为0
-    for i in range(2, len(bytes)):
-        checksum += bytes[i]          # 对数据进行加和处理
-    checksum &= 0xFF                  # 对校验和取低八位
-    bytes.append(checksum)            # 低八位校验和
-    ser.write(bytes)                  # 向串口写入数据
-    time.sleep(0.01)                  # 延时10ms
-    ser.read_all()                    # 把返回帧读掉，不处理
-
-
 
 # 函数说明：力控模式函数；参数：id为电缸ID号， force为力控目标值
 def force(ser, id, force):

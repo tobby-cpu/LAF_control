@@ -1,7 +1,7 @@
 ﻿import json
 def read_config():
     global port ,baudrate ,timeout,Hand_ID,CMD_FINGER_ANGLE_SET_2B,LAF_ID,CMD_WR_REGISTER,CMD_HANDG3_WRITE
-    global CMD_FINGER_SPEED_SET_2B,FRAME_HAND1,FRAME_HAND2,FRAME_LAF1,FRAME_LAF2
+    global CMD_FINGER_SPEED_SET_2B,FRAME_HAND1,FRAME_HAND2,FRAME_LAF1,FRAME_LAF2,CMD_RD_STATUS
     file_path = 'config/parameter.json'
     with open(file_path, 'r',encoding='utf-8-sig') as f:
         config = json.load(f)
@@ -19,7 +19,8 @@ def read_config():
     FRAME_HAND2 = config['FRAME_HAND2']
     FRAME_LAF1 = config['FRAME_LAF1']
     FRAME_LAF2 = config['FRAME_LAF2']
-
+    CMD_RD_STATUS = config['CMD_RD_STATUS']
+    
     print(f"串口端口: {port}")
     print(f"波特率: {baudrate}")
     print(f"超时时间: {timeout} 秒")
@@ -33,5 +34,5 @@ def read_config():
     print(f"三代手帧头2: {FRAME_HAND2}")
     print(f"LAF电机帧头1: {FRAME_LAF1}")
     print(f"LAF电机帧头2: {FRAME_LAF2}")
-
+    print(f"LAF读寄存器命令标志: {CMD_RD_STATUS}")
 read_config()

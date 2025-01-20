@@ -11,5 +11,6 @@
     "FRAME_HAND1" : "0xEB",
     "FRAME_HAND2" : "0x90",
     "FRAME_LAF1" : "0x55",
-    "FRAME_LAF2" : "0xAA"
+    "FRAME_LAF2" : "0xAA",
+    "CMD_RD_STATUS" : "0x30"
 }
