@@ -7,7 +7,7 @@ from readstatus_func import LAF_reedState,Hand_readState
 import config.init as cf
 # 主函数功能：首先打开串口，设置对应的端口和波特率，依次设置电缸运动位置参数
 if __name__ == '__main__':
-    
+     
     read_config()
     print('打开串口！') # 打印提示字符“打开串口”
     ser = openSerial(cf.port, cf.baudrate) # 改成自己的串口号和波特率，波特率默认921600
