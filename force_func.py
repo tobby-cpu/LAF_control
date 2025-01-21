@@ -13,7 +13,7 @@ def force_LAF(ser, force):
     bytes.append(0x00)                # 电机输出电压寄存器，在力控模式无用
     bytes.append(0x00)                # 电机输出电压寄存器，在力控模式无用
     bytes.append(force & 0xff)        # 力控目标值
-    bytes.append((force >> 8) & 0xff) # 力控目标值
+    bytes.append((force >> 8) & 0xff) # 力控目标值 
     checksum = 0x00                   # 校验和初始化为0
     for i in range(2, len(bytes)):
         checksum += bytes[i]          # 对数据进行加和处理
