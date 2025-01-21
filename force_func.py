@@ -23,7 +23,7 @@ def force_LAF(ser, force):
     time.sleep(0.01)                  # 延时10ms
     ser.read_all()                    # 把返回帧读掉，不处理
 #3代手力控函数
-    def force_hand(ser,val1,val2,val3,val4,val5,val6):
+    def force_HAND(ser,val1,val2,val3,val4,val5,val6):
     length = 12+2+1                     
     bytes = [cf.FRAME_HAND1, cf.FRAME_HAND2]                 # 帧头
     bytes.append(cf.Hand_ID)                                 # ID
