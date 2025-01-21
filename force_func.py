@@ -25,8 +25,8 @@ def force(ser, force):
 #3代手力控函数
     def force_hand(ser,val1,val2,val3,val4,val5,val6):
     length = 12+2+1                     
-    bytes = [cf.FRAME_HAND1, cf.FRAME_HAND2]              # 帧头
-    bytes.append(cf.Hand_ID)                  # ID
+    bytes = [cf.FRAME_HAND1, cf.FRAME_HAND2]                 # 帧头
+    bytes.append(cf.Hand_ID)                                 # ID
     bytes.append(length)
     bytes.append(cf.CMD_HANDG3_WRITE)  #写3代手寄存器指令
     bytes.append(cf.CMD_FINGER_FORCE_SET_2B & 0xff)          # 目标寄存器地址
