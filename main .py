@@ -28,13 +28,17 @@ if __name__ == '__main__':
     print('读取电缸状态信息')
     LAF_reedState(ser)
     Hand_readState(ser)
-    '''
+    
     print('设置电缸力控目标值，速度以及位置信息')
-    speedForce(ser,1, 10, 2000, 2000)
+    force_LAF(ser,10,2000,2000)
+    force_HAND(ser,0,0,0,0,0,0)
     time.sleep(1)
+
+    '''
     print('设置力控目标值')
-    #speed(ser,1, 10)
+    #speed(ser,10)
     time.sleep(1)
+    
     print('设置电机输出电压')
   #  voltage(ser,1, 10)
   '''
