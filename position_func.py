@@ -49,16 +49,18 @@ def position_hand(ser,val1):
     time.sleep(0.01)                  # 延时10ms
     ser.read_all()                    # 把返回帧读掉，不处理
 
-def position_wrist(ser,val):
+def position_wrist(ser,val1,val2):
     length = 4                      #设置了6个角度，每个角度占2B
     bytes = [cf.FRAME_HAND1, cf.FRAME_HAND2]              # 帧头
     bytes.append(cf.Hand_ID)                  # ID
     bytes.append(length + 3)           #6个角度值，每个值占2B，故为12
-    bytes.append(cf.CMD_HANDG3_WRITE)  #写3代手寄存器指令
-    bytes.append(cf.CMD_FINGER_ANGLE_SET_2B & 0xff)          # 目标寄存器地址
-    bytes.append((cf.CMD_FINGER_ANGLE_SET_2B >> 8) & 0xff)   # 目标寄存器地址
-    bytes.append(val & 0xFF)          #设置小拇指角度值
-    bytes.append((val >> 8) & 0xFF)   #设置小拇指角度值
+    bytes.append(cf.CMD_WRIST_WRITE)  #写3代手寄存器指令
+    bytes.append(cf.CMD_WRIST_ANGLE & 0xff)          # 目标寄存器地址
+    bytes.append((cf.CMD_WRIST_ANGLE >> 8) & 0xff)   # 目标寄存器地址
+    bytes.append(val1 & 0xFF)          #设置偏转角度
+    bytes.append((val1 >> 8) & 0xFF)   #设置偏转角度
+    bytes.append(val2 & 0xFF)          #设置俯仰角度
+    bytes.append((val2 >> 8) & 0xFF)   #设置俯仰角度
     #计算校验和
     checksum = 0x00                    # 校验和初始化为0
     for i in range(2,len(bytes) ):

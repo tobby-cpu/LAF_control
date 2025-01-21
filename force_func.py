@@ -23,33 +23,33 @@ def force_LAF(ser, force):
     time.sleep(0.01)                  # 延时10ms
     ser.read_all()                    # 把返回帧读掉，不处理
 #3代手力控函数
-    def force_HAND(ser,val1,val2,val3,val4,val5,val6):
-        length = 12+2+1                     
-        bytes = [cf.FRAME_HAND1, cf.FRAME_HAND2]                 # 帧头
-        bytes.append(cf.Hand_ID)                                 # ID
-        bytes.append(length)
-        bytes.append(cf.CMD_HANDG3_WRITE)  #写3代手寄存器指令
-        bytes.append(cf.CMD_FINGER_FORCE_SET_2B & 0xff)          # 目标寄存器地址
-        bytes.append((cf.CMD_FINGER_FORCE_SET_2B >> 8) & 0xff)   # 目标寄存器地址           
-        bytes.append(val1 & 0xff)          
-        bytes.append((val1 >> 8) & 0xff)   
-        bytes.append(val2 & 0xff)          
-        bytes.append((val2 >> 8) & 0xff)   
-        bytes.append(val3 & 0xff)          
-        bytes.append((val3 >> 8) & 0xff)   
-        bytes.append(val4 & 0xff)          
-        bytes.append((val4 >> 8) & 0xff)   
-        bytes.append(val5 & 0xff)          
-        bytes.append((val5 >> 8) & 0xff)   
-        bytes.append(val6 & 0xff)          
-        bytes.append((val6 >> 8) & 0xff)   
-        #计算校验和
-        checksum = 0x00                    # 校验和初始化为0
-        send_len = length + 5
-        for i in range(2, send_len - 1):
-            checksum += bytes[i]          # 对数据进行加和处理
-        checksum &= 0xFF                  # 对校验和取低八位
-        bytes.append(checksum)            # 低八位校验和
-        ser.write(bytes)                  # 向串口写入数据
-        time.sleep(0.01)                  # 延时10ms
-        ser.read_all()                    # 把返回帧读掉，不处理
+def force_HAND(ser,val1,val2,val3,val4,val5,val6):
+    length = 12+2+1                     
+    bytes = [cf.FRAME_HAND1, cf.FRAME_HAND2]                 # 帧头
+    bytes.append(cf.Hand_ID)                                 # ID
+    bytes.append(length)
+    bytes.append(cf.CMD_HANDG3_WRITE)  #写3代手寄存器指令
+    bytes.append(cf.CMD_FINGER_FORCE_SET_2B & 0xff)          # 目标寄存器地址
+    bytes.append((cf.CMD_FINGER_FORCE_SET_2B >> 8) & 0xff)   # 目标寄存器地址           
+    bytes.append(val1 & 0xff)          
+    bytes.append((val1 >> 8) & 0xff)   
+    bytes.append(val2 & 0xff)          
+    bytes.append((val2 >> 8) & 0xff)   
+    bytes.append(val3 & 0xff)          
+    bytes.append((val3 >> 8) & 0xff)   
+    bytes.append(val4 & 0xff)          
+    bytes.append((val4 >> 8) & 0xff)   
+    bytes.append(val5 & 0xff)          
+    bytes.append((val5 >> 8) & 0xff)   
+    bytes.append(val6 & 0xff)          
+    bytes.append((val6 >> 8) & 0xff)   
+    #计算校验和
+    checksum = 0x00                    # 校验和初始化为0
+    send_len = length + 5
+    for i in range(2, send_len - 1):
+        checksum += bytes[i]          # 对数据进行加和处理
+    checksum &= 0xFF                  # 对校验和取低八位
+    bytes.append(checksum)            # 低八位校验和
+    ser.write(bytes)                  # 向串口写入数据
+    time.sleep(0.01)                  # 延时10ms
+    ser.read_all()                    # 把返回帧读掉，不处理

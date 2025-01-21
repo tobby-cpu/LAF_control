@@ -1,10 +1,10 @@
 import time    # 调用时间库
 from control_func import openSerial
-from position_func import position_hand,position_LAF
+from position_func import position_wrist,position_LAF
 from speed_func import speed_LAF,speed_hand
 from config.init import read_config
 from readstatus_func import LAF_reedState,Hand_readState
-from 
+from force_func import force_LAF,force_HAND
 import config.init as cf
 # 主函数功能：首先打开串口，设置对应的端口和波特率，依次设置电缸运动位置参数
 if __name__ == '__main__':
@@ -17,7 +17,7 @@ if __name__ == '__main__':
     
     print('设置电缸位置信息，-1为不设置该运动速度！')     #位置控制函数调试
     position_LAF(ser ,0)
-    position_hand(ser, 0 )
+    position_wrist(ser,-10,10)
     time.sleep(1)
     
     print('设置电缸速度以及位置信息')           #速度控制函数调试

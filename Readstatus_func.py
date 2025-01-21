@@ -36,8 +36,7 @@ def Hand_readState(ser):
     bytes.append((cf.CMD_FINGER_ANGLE_2B >> 8) & 0xff) 
     bytes.append(78)          
     checksum = 0x00                    # 校验和初始化为0
-    send_len = length + 5
-    for i in range(2, send_len - 1):
+    for i in range(2,len(bytes)):
         checksum += bytes[i]          # 对数据进行加和处理
     checksum &= 0xFF                  # 对校验和取低八位
     bytes.append(checksum)            # 低八位校验和
@@ -54,3 +53,4 @@ def Hand_readState(ser):
     for i in range(num):
         print(val[i], end=' ')
     print()
+

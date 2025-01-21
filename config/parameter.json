@@ -16,5 +16,7 @@
     "CMD_RD_STATUS" : "0x30",
     "CMD_FINGER_ANGLE_2B" : 1546,
     "CMD_HANDG3_READ" : "0x11",
-    "CMD_WRIST_ANGLE" : 1038
+    "CMD_WRIST_ANGLE" : 1038,
+    "CMD_WRIST_WRITE" : "0x31"
+
 }
