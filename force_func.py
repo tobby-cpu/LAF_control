@@ -1,7 +1,7 @@
 import time
 import config.init as cf
 # 函数说明：力控模式函数；参数：id为电缸ID号， force为力控目标值
-def force(ser, force):
+def force_LAF(ser, force):
     bytes = [cf.FRAME_LAF1, cf.FRAME_LAF2]              # 帧头
     bytes.append(0x0D)                # 数据长度
     bytes.append(cf.LAF_ID)                  # ID号
