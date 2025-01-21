@@ -2,7 +2,7 @@
 def read_config():
     global port ,baudrate ,timeout,Hand_ID,CMD_FINGER_ANGLE_SET_2B,LAF_ID,CMD_WR_REGISTER,CMD_HANDG3_WRITE
     global CMD_FINGER_SPEED_SET_2B,FRAME_HAND1,FRAME_HAND2,FRAME_LAF1,FRAME_LAF2,CMD_RD_STATUS,CMD_FINGER_ANGLE_2B
-    global CMD_HANDG3_READ
+    global CMD_HANDG3_READ,CMD_WRIST_ANGLE
     file_path = 'config/parameter.json'
     with open(file_path, 'r',encoding='utf-8-sig') as f:
         config = json.load(f)
@@ -23,6 +23,7 @@ def read_config():
     CMD_RD_STATUS = int(config['CMD_RD_STATUS'],16)
     CMD_FINGER_ANGLE_2B = config['CMD_FINGER_ANGLE_2B']
     CMD_HANDG3_READ = int(config['CMD_HANDG3_READ'],16)
+    CMD_WRIST_ANGLE = config['CMD_WRIST_ANGLE']
 
     print(f"串口端口: {port}")
     print(f"波特率: {baudrate}")
