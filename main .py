@@ -24,15 +24,14 @@ if __name__ == '__main__':
     position_wrist(ser,-10,10)
     time.sleep(1)
 
+    print('设置力控目标值')               #力控函数调试
+    force_HAND(ser,10,10,10,10,10,10)
+    time.sleep(1)
+
     print('读取电缸状态信息')
     Hand_readState(ser,cf.CMD_FINGER_ANGLE_2B)      #可以通过改变输入的寄存器地址参数来读取不同的内容
     wrist_readState(ser,cf.CMD_WRIST_SPEED_SET)
 '''
-    print('设置力控目标值')               #力控函数调试
-    force_LAF(ser,10)
-    force_HAND(ser,0,0,0,0,0,0)
-    time.sleep(1)
-
     
     print('设置电缸力控目标值，速度以及位置信息')
     force_LAF(ser,10,2000,2000)
