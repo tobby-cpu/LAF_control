@@ -29,16 +29,26 @@ def position_LAF(ser,val):
     ser.read_all()                    # 把返回帧读掉，不处理
 
 #3代手控制函数,设置了6个连续的角度值
-def position_hand(ser,val1):
+def position_hand(ser,val1,val2,val3,val4,val5,val6):
     length = 2*6                      #设置了6个角度，每个角度占2B
     bytes = [cf.FRAME_HAND1, cf.FRAME_HAND2]              # 帧头
     bytes.append(cf.Hand_ID)                  # ID
     bytes.append(length + 3)           #6个角度值，每个值占2B，故为12
     bytes.append(cf.CMD_HANDG3_WRITE)  #写3代手寄存器指令
-    bytes.append(cf.CMD_FINGER_ANGLE_SET_2B & 0xff)          # 目标寄存器地址
-    bytes.append((cf.CMD_FINGER_ANGLE_SET_2B >> 8) & 0xff)   # 目标寄存器地址
-    bytes.append(val1 & 0xff)          #设置小拇指角度值
-    bytes.append((val1 >> 8) & 0xff)   #设置小拇指角度值
+    bytes.append(cf.CMD_FINGER_ANGLE_SET_2B & 0xFF)          # 目标寄存器地址
+    bytes.append((cf.CMD_FINGER_ANGLE_SET_2B >> 8) & 0xFF)   # 目标寄存器地址
+    bytes.append(val1 & 0xFF)          #设置小拇指角度值
+    bytes.append((val1 >> 8) & 0xFF)   #设置小拇指角度值
+    bytes.append(val2 & 0xFF)          #设置小拇指角度值
+    bytes.append((val2 >> 8) & 0xFF)   #设置小拇指角度值
+    bytes.append(val3 & 0xFF)          #设置小拇指角度值
+    bytes.append((val3 >> 8) & 0xFF)   #设置小拇指角度值
+    bytes.append(val4 & 0xFF)          #设置小拇指角度值
+    bytes.append((val4 >> 8) & 0xFF)   #设置小拇指角度值
+    bytes.append(val5 & 0xFF)          #设置小拇指角度值
+    bytes.append((val5 >> 8) & 0xFF)   #设置小拇指角度值
+    bytes.append(val6 & 0xFF)          #设置小拇指角度值
+    bytes.append((val6 >> 8) & 0xFF)   #设置小拇指角度值
     #计算校验和
     checksum = 0x00                    # 校验和初始化为0
     for i in range(2,len(bytes) ):

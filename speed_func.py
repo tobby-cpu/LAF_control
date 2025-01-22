@@ -29,13 +29,13 @@ def speed_LAF(ser,speed, val):
 
 #3代手控制函数,设置了6个连续的角度值
 def speed_hand(ser,val1,val2,val3,val4,val5,val6):
-    length = 2*6                      #设置了6个角度，每个角度占2B
+    length = 2*6                      #设置了6个速度，每个角度占2B
     bytes = [cf.FRAME_HAND1, cf.FRAME_HAND2]              # 帧头
     bytes.append(cf.Hand_ID)                  # ID
+    bytes.append(length + 3)           #6个角度值，每个值占2B，故为12
+    bytes.append(cf.CMD_HANDG3_WRITE)  #写3代手寄存器指令
     bytes.append(cf.CMD_FINGER_SPEED_SET_2B & 0xff)          # 目标寄存器地址
     bytes.append((cf.CMD_FINGER_SPEED_SET_2B >> 8) & 0xff)   # 目标寄存器地址
-    bytes.append(length + 3)           #6个角度值，每个值占2B，故为12
-    bytes.append(cf.CMD_HANDG3_WRITE)                 #写3代手寄存器指令
     bytes.append(val1 & 0xff)          #设置小拇指角度值
     bytes.append((val1 >> 8) & 0xff)   #设置小拇指角度值
     bytes.append(val2 & 0xff)          #设置无名指角度值
@@ -48,10 +48,29 @@ def speed_hand(ser,val1,val2,val3,val4,val5,val6):
     bytes.append((val5 >> 8) & 0xff)   #设置大拇指角度值
     bytes.append(val6 & 0xff)          #设置大拇指旋转角度值
     bytes.append((val6 >> 8) & 0xff)   #设置大拇指旋转角度值
+                                       #计算校验和
+    checksum = 0x00                    # 校验和初始化为0
+    for i in range(2,len(bytes) ):
+        checksum += bytes[i]          # 对数据进行加和处理
+    checksum &= 0xFF                  # 对校验和取低八位
+    bytes.append(checksum)            # 低八位校验和
+    ser.write(bytes)                  # 向串口写入数据
+    time.sleep(0.01)                  # 延时10ms
+    ser.read_all()                    # 把返回帧读掉，不处理
+
+def speed_wrist(ser,val):
+    length = 2                      #设置了一个时间，每个时间占2B
+    bytes = [cf.FRAME_HAND1, cf.FRAME_HAND2]              # 帧头
+    bytes.append(cf.Hand_ID)                  # ID
+    bytes.append(length + 3)           #6个角度值，每个值占2B，故为12
+    bytes.append(cf.CMD_WRIST_WRITE)  #写手腕电机寄存器指令
+    bytes.append(cf.CMD_WRIST_SPEED_SET & 0xff)          # 目标寄存器地址
+    bytes.append((cf.CMD_WRIST_SPEED_SET >> 8) & 0xff)   # 目标寄存器地址
+    bytes.append(val & 0xFF)          #设置时间
+    bytes.append((val >> 8) & 0xFF)   #设置时间
     #计算校验和
     checksum = 0x00                    # 校验和初始化为0
-    send_len = length + 5
-    for i in range(2, send_len - 1):
+    for i in range(2,len(bytes) ):
         checksum += bytes[i]          # 对数据进行加和处理
     checksum &= 0xFF                  # 对校验和取低八位
     bytes.append(checksum)            # 低八位校验和
