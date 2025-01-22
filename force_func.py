@@ -53,3 +53,25 @@ def force_HAND(ser,val1,val2,val3,val4,val5,val6):
     ser.write(bytes)                  # 向串口写入数据
     time.sleep(0.01)                  # 延时10ms
     ser.read_all()                    # 把返回帧读掉，不处理
+    
+def force_wrist(ser,val1,val2):
+    length = 4                      
+    bytes = [cf.FRAME_HAND1, cf.FRAME_HAND2]              # 帧头
+    bytes.append(cf.Hand_ID)                  # ID
+    bytes.append(length + 3)           
+    bytes.append(cf.CMD_WRIST_WRITE) 
+    bytes.append(cf.CMD_WRIST_FORCE & 0xff)          # 目标寄存器地址
+    bytes.append((cf.CMD_WRIST_FORCE >> 8) & 0xff)   # 目标寄存器地址
+    bytes.append(val1 & 0xFF)          
+    bytes.append((val1 >> 8) & 0xFF)   
+    bytes.append(val2 & 0xFF)          
+    bytes.append((val2 >> 8) & 0xFF)   
+    #计算校验和
+    checksum = 0x00                    # 校验和初始化为0
+    for i in range(2,len(bytes) ):
+        checksum += bytes[i]          # 对数据进行加和处理
+    checksum &= 0xFF                  # 对校验和取低八位
+    bytes.append(checksum)            # 低八位校验和
+    ser.write(bytes)                  # 向串口写入数据
+    time.sleep(0.01)                  # 延时10ms
+    ser.read_all()                    # 把返回帧读掉，不处理
